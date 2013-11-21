@@ -9,7 +9,8 @@ public class ButtonListener : MonoBehaviour {
 	private int gameState = 0;
 	
 	private GameObject buttonPanel;						//放主按钮的面板
-	private float scrollSpeed = 700.0f;					//滑动的速度
+	private GameObject missionPanel;					//放关卡的面板
+	private float scrollSpeed = 600.0f;					//滑动的速度
 	
 	void Awake() {
 		GameObject[] buttons = GameObject.FindGameObjectsWithTag("MainButton");
@@ -17,6 +18,7 @@ public class ButtonListener : MonoBehaviour {
 			UIEventListener.Get(button).onClick = OnClick;
 		}
 		buttonPanel = GameObject.Find("ButtonPanel");
+		missionPanel = GameObject.Find("MissionPanel");
 	}
 
 	// Use this for initialization
@@ -57,7 +59,9 @@ public class ButtonListener : MonoBehaviour {
 	
 	private void scrollToMission() {
 		if(buttonPanel.transform.localPosition.x > -Screen.width) {
-			buttonPanel.transform.localPosition -= new Vector3(scrollSpeed * Time.deltaTime, 0.0f, 0.0f);
+			float deltaX = scrollSpeed * Time.deltaTime;
+			buttonPanel.transform.localPosition -= new Vector3(deltaX, 0.0f, 0.0f);
+			missionPanel.transform.localPosition -= new Vector3(deltaX, 0.0f, 0.0f);
 		}
 		else {
 			buttonPanel.transform.localPosition = 
@@ -65,6 +69,12 @@ public class ButtonListener : MonoBehaviour {
 								-Screen.width, 
 								buttonPanel.transform.localPosition.y, 
 								buttonPanel.transform.localPosition.z
+							);
+			missionPanel.transform.localPosition = 
+				new Vector3(
+								0.0f,
+								missionPanel.transform.localPosition.y, 
+								missionPanel.transform.localPosition.z
 							);
 			gameState = STATE_NOTHING;
 		}

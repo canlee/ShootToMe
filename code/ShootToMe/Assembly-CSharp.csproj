@@ -162,6 +162,8 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITiledSprite.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\Source\Gui\Game\Mission\BackButtonTransform.cs" />
+     <Compile Include="Assets\Source\Gui\Game\Mission\MissionPanelPosition.cs" />
      <Compile Include="Assets\Source\Gui\Main\ButtonListener.cs" />
      <Compile Include="Assets\Source\Gui\Main\ButtonPosition.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />

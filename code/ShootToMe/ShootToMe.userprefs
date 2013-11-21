@@ -2,8 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Source\Gui\Main\ButtonListener.cs">
     <Files>
-      <File FileName="Assets\Source\Gui\Main\ButtonListener.cs" Line="12" Column="31" />
-      <File FileName="Assets\Source\Gui\Main\ButtonPosition.cs" Line="17" Column="37" />
+      <File FileName="Assets\Source\Gui\Main\ButtonListener.cs" Line="7" Column="31" />
+      <File FileName="Assets\Source\Gui\Main\ButtonPosition.cs" Line="5" Column="2" />
+      <File FileName="Assets\Source\Gui\Game\Mission\MissionPanelPosition.cs" Line="7" Column="36" />
+      <File FileName="Assets\Source\Gui\Game\Mission\BackButtonTransform.cs" Line="40" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
