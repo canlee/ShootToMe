@@ -30,10 +30,24 @@ public class DrawBrowseButton : MonoBehaviour {
 				GameObject gameObj;
 				if(_currentPage >= 0 && _currentPage < buttonList.Count) {
 					gameObj = buttonList[_currentPage] as GameObject;
-					gameObj.GetComponent<UISprite>().spriteName = "picture_browse_radiobutton";
+					if(gameObj.GetComponent<UISprite>().spriteName == "picture_browse_radiobutton_hl") {
+						gameObj.GetComponent<UISprite>().spriteName = "picture_browse_radiobutton";
+						gameObj.transform.localScale = new Vector3(
+																	gameObj.transform.localScale.x / 3, 
+																	gameObj.transform.localScale.y / 3, 
+																	gameObj.transform.localScale.z
+																);
+					}
 				}
 				gameObj = buttonList[value] as GameObject;
-				gameObj.GetComponent<UISprite>().spriteName = "picture_browse_radiobutton_hl";
+				if(gameObj.GetComponent<UISprite>().spriteName == "picture_browse_radiobutton") {
+					gameObj.GetComponent<UISprite>().spriteName = "picture_browse_radiobutton_hl";
+					gameObj.transform.localScale = new Vector3(
+																gameObj.transform.localScale.x * 3, 
+																gameObj.transform.localScale.y * 3, 
+																gameObj.transform.localScale.z
+															);
+				}
 				_currentPage = value;
 			}
 		}
@@ -72,6 +86,6 @@ public class DrawBrowseButton : MonoBehaviour {
 			tmp.transform.localScale = button.transform.localScale;
 			tmp.transform.localPosition = new Vector3(x, y, button.transform.localPosition.z);
 		}
-		currentPage = 1;
+		currentPage = 0;
 	}
 }

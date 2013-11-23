@@ -50,6 +50,8 @@ public class MissionButtonTransform : MonoBehaviour {
 				float cSize = pSize / 2;
 				child.localScale = new Vector3(cSize, cSize, child.transform.localScale.z);
 				child.localPosition = new Vector3(0.0f, -cSize, 0.0f);
+				//设置字体的大小
+				((UILabel) child.GetComponent<UILabel>()).font.dynamicFontSize = (int) cSize;
 				break;
 				
 			default:

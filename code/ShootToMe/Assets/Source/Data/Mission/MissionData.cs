@@ -11,7 +11,7 @@ public class MissionData {
 	/// The MISSIO n_ COUN.
 	/// 关卡的数量
 	/// </summary>
-	public static int MISSION_COUNT = 12;
+	public static int MISSION_COUNT =20;
 	
 	/// <summary>
 	/// The MISSIO n_ RO.
