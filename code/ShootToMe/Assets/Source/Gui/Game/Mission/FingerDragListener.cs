@@ -10,14 +10,19 @@ public class FingerDragListener : MonoBehaviour {
 	/// <summary>
 	/// 需要面板移动的最小滑动距离
 	/// </summary>
-	private const int MIN_DRAG_DELTA_X = 20;
+	private const float MIN_DRAG_DELTA_X = 20.0f;
+	/// <summary>
+	/// Constant MI n_ SCROL l_ VELOCIT.
+	/// 翻页的滑动最小速度
+	/// </summary>
+	private const float MIN_SCROLL_VELOCITY = 2000.0f;
 	
 	private const int STATE_NOTHING = 0;			//没事儿
 	private const int STATE_SCROLL_TO_PRE = 1;		//滑到上一页
 	private const int STATE_SCROLL_TO_POST = 2;		//滑到下一页
 	private const int STATE_SCROLL_TO_CURRENT = 3;	//滑回到原位 
 	
-	private const float SCROLL_SPEED = 400.0f;		//滑动速度
+	private const float SCROLL_SPEED = 500.0f;		//滑动速度
 	
 	private static float SCROLL_ENABLE;
 	
@@ -40,6 +45,8 @@ public class FingerDragListener : MonoBehaviour {
 			FingerGestures.OnFingerDragBegin += OnFingerDragBegin;
 			FingerGestures.OnFingerDragEnd += OnFingerDragEnd;
 			FingerGestures.OnFingerDragMove += OnFingerDragMove;
+			FingerGestures.OnFingerSwipe += OnFingerSwipe;
+			
 			SCROLL_ENABLE = Screen.width / 3;
 		}
 	}
@@ -53,6 +60,7 @@ public class FingerDragListener : MonoBehaviour {
 			FingerGestures.OnFingerDragBegin -= OnFingerDragBegin;
 			FingerGestures.OnFingerDragEnd -= OnFingerDragEnd;
 			FingerGestures.OnFingerDragMove -= OnFingerDragMove;
+			FingerGestures.OnFingerSwipe -= OnFingerSwipe;
 		}
 	}
 	
@@ -93,6 +101,9 @@ public class FingerDragListener : MonoBehaviour {
 	/// </summary>
 	void OnFingerDragEnd(int fingerIndex, Vector2 fingerPos) {
 		isDrag = false;
+		if(state == STATE_SCROLL_TO_POST || state == STATE_SCROLL_TO_PRE) {
+			return;
+		}
 		if(fingerPos.x > startX) {
 			if(fingerPos.x - startX > SCROLL_ENABLE 
 				&& DrawBrowseButton.currentPage - 1 >= 0) {
@@ -127,6 +138,39 @@ public class FingerDragListener : MonoBehaviour {
 			else {
 				if(Mathf.Abs(fingerPos.x - startX) > MIN_DRAG_DELTA_X) {
 					isDrag = true;
+				}
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Raises the finger swipe event.
+	/// 快速滑动时可以翻页
+	/// </summary>
+	/// <param name='fingerIndex'>
+	/// Finger index.
+	/// </param>
+	/// <param name='startPos'>
+	/// Start position.
+	/// </param>
+	/// <param name='direction'>
+	/// Direction.
+	/// </param>
+	/// <param name='velocity'>
+	/// Velocity.
+	/// </param>
+	void OnFingerSwipe(int fingerIndex, Vector2 startPos, FingerGestures.SwipeDirection direction, float velocity) {
+		if(velocity > MIN_SCROLL_VELOCITY) {
+			if(direction == FingerGestures.SwipeDirection.Right) {
+				if(DrawBrowseButton.currentPage - 1 >= 0) {
+					//翻去上一页
+					state = STATE_SCROLL_TO_PRE;
+				}
+			}
+			else if(direction == FingerGestures.SwipeDirection.Left) {
+				if(DrawBrowseButton.currentPage + 1 < childPanels.Count) {
+					//翻去下一页
+					state = STATE_SCROLL_TO_POST;
 				}
 			}
 		}
